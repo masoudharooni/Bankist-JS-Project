@@ -67,11 +67,19 @@ const displayMovements = function (movements) {
         <div class="movements__date">3 days ago</div>
         <div class="movements__value">${mov}</div>
       </div>`;
-    console.log(html);
     containerMovements.insertAdjacentHTML('beforeend', html);
   });
 }
 displayMovements(account1.movements);
+
+
+const createUsername = function (accounts) {
+  accounts.forEach(function (account) {
+    account.username = account.owner.toLowerCase().split(' ').map(name => name[0]).join('');
+  });
+}
+createUsername(accounts);
+console.log(accounts);
 // LECTURES
 
 const currencies = new Map([
