@@ -79,7 +79,12 @@ const createUsername = function (accounts) {
   });
 }
 createUsername(accounts);
-console.log(accounts);
+
+const calculateDisplayBalance = function (movements) {
+  const balance = movements.reduce((accumulator, current) => accumulator + current, 0);
+  labelBalance.textContent = `${balance}€`;
+}
+calculateDisplayBalance(account1.movements);
 // LECTURES
 
 const currencies = new Map([
