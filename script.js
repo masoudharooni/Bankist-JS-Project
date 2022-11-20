@@ -63,29 +63,53 @@ const displayMovements = function (movements) {
     const movementType = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
       <div class="movements__row">
-        <div class="movements__type movements__type--${movementType}">${index + 1} ${movementType}</div>
+        <div class="movements__type movements__type--${movementType}">${
+      index + 1
+    } ${movementType}</div>
         <div class="movements__date">3 days ago</div>
         <div class="movements__value">${mov}</div>
       </div>`;
     containerMovements.insertAdjacentHTML('beforeend', html);
   });
-}
+};
 displayMovements(account1.movements);
-
 
 const createUsername = function (accounts) {
   accounts.forEach(function (account) {
-    account.username = account.owner.toLowerCase().split(' ').map(name => name[0]).join('');
+    account.username = account.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
   });
-}
+};
 createUsername(accounts);
 
 const calculateDisplayBalance = function (movements) {
-  const balance = movements.reduce((accumulator, current) => accumulator + current, 0);
+  const balance = movements.reduce(
+    (accumulator, current) => accumulator + current,
+    0
+  );
   labelBalance.textContent = `${balance}€`;
-}
+};
 calculateDisplayBalance(account1.movements);
 // LECTURES
+
+const calculateDisplaySummery = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = incomes;
+
+  const outcomes = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = outcomes;
+
+  const interests = movements.reduce((acc, mov) => acc + mov, 0);
+  labelSumInterest.textContent = interests;
+};
+calculateDisplaySummery(account1.movements);
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
