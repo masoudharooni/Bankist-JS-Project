@@ -57,6 +57,8 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+let sortMethod = 'beforeend';
+
 const displayMovements = function (movements) {
   containerMovements.innerHTML = '';
   movements.forEach(function (mov, index) {
@@ -69,10 +71,15 @@ const displayMovements = function (movements) {
         <div class="movements__date">3 days ago</div>
         <div class="movements__value">${mov}</div>
       </div>`;
-    containerMovements.insertAdjacentHTML('beforeend', html);
+    containerMovements.insertAdjacentHTML(sortMethod, html);
   });
 };
 displayMovements(account1.movements);
+
+btnSort.addEventListener('click', function () {
+  sortMethod = sortMethod == 'beforeend' ? 'afterbegin' : 'beforeend';
+  displayMovements(account1.movements);
+});
 
 const createUsername = function (accounts) {
   accounts.forEach(function (account) {
