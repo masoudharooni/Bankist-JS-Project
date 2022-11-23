@@ -56,7 +56,7 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
-
+let currentAccount;
 let sortMethod = 'beforeend';
 
 const displayMovements = function (movements) {
@@ -118,6 +118,29 @@ const calculateDisplaySummery = function (movements) {
 };
 calculateDisplaySummery(account1.movements);
 
+const appSwitcherMood = function () {
+  containerApp.style.opacity == 0
+    ? (containerApp.style.opacity = 1)
+    : (containerApp.style.opacity = 0);
+};
+
+const login = function (username, pin) {
+  const userAccount = accounts.find(acc => acc.username === username);
+  if (userAccount.pin === pin) {
+    appSwitcherMood();
+    currentAccount = { ...userAccount };
+  } else {
+    alert('your pin is not correct:(');
+  }
+};
+
+// Login event handler
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  const username = inputLoginUsername.value;
+  const pin = Number(inputLoginPin.value);
+  login(username, pin);
+});
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
